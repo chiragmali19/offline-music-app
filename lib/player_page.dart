@@ -7,6 +7,7 @@ class PlayerPage extends StatefulWidget {
   final List<String> songList;
   final int initialIndex;
   final String imagePath;
+  final Function(String) onFavoritePressed;
 
   const PlayerPage({
     Key? key,
@@ -14,6 +15,7 @@ class PlayerPage extends StatefulWidget {
     required this.songList,
     required this.initialIndex,
     required this.imagePath,
+    required this.onFavoritePressed, required List<String> favorites,
   }) : super(key: key);
 
   @override
@@ -27,6 +29,7 @@ class _PlayerPageState extends State<PlayerPage> {
   bool _isPlaying = false;
   Duration _totalDuration = Duration();
   Duration _currentPosition = Duration();
+  bool _isFavorite = false;
 
   @override
   void initState() {
@@ -123,11 +126,29 @@ class _PlayerPageState extends State<PlayerPage> {
     return "$twoDigitMinutes:$twoDigitSeconds";
   }
 
+  void _toggleFavorite() {
+    setState(() {
+      _isFavorite = !_isFavorite;
+    });
+    if (_isFavorite) {
+      widget.onFavoritePressed(widget.songPath);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Playing Now'),
+        actions: [
+          IconButton(
+            icon: Icon(
+              _isFavorite ? Icons.favorite : Icons.favorite_border,
+              color: Colors.white,
+            ),
+            onPressed: _toggleFavorite,
+          ),
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

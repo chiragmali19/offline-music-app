@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project1/Favoritepage.dart';
 import 'package:project1/player_page.dart';
 
 class MusicPlayerScreen extends StatefulWidget {
@@ -14,7 +15,6 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
     'assets/music/track2.mp3',
     'assets/music/track3.mp3',
     'assets/music/track4.mp3',
-    // Add more song paths here
   ];
 
   final List<String> _images = [
@@ -22,14 +22,28 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
     'assets/image/pic1.jpg',
     'assets/image/pic1.jpg',
     'assets/image/pic1.jpg',
-    // Add corresponding image paths here
   ];
+
+  final List<String> _favorites = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Offline Music Player'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.favorite),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FavoritePage(favorites: _favorites),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: _songs.length,
@@ -49,6 +63,23 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                 song.split('/').last,
                 style: const TextStyle(color: Colors.black),
               ),
+              trailing: IconButton(
+                icon: Icon(
+                  _favorites.contains(song)
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color: Colors.red,
+                ),
+                onPressed: () {
+                  setState(() {
+                    if (_favorites.contains(song)) {
+                      _favorites.remove(song);
+                    } else {
+                      _favorites.add(song);
+                    }
+                  });
+                },
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -58,6 +89,9 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                       songList: _songs,
                       initialIndex: index,
                       imagePath: image,
+                      favorites: _favorites, onFavoritePressed: (String) {
+                        
+                      },
                     ),
                   ),
                 );
