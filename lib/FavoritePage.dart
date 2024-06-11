@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class FavoritePage extends StatelessWidget {
   final List<String> favorites;
 
-  const FavoritePage({Key? key, required this.favorites}) : super(key: key);
+  const FavoritePage({super.key, required this.favorites});
 
   @override
   Widget build(BuildContext context) {

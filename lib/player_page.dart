@@ -10,13 +10,14 @@ class PlayerPage extends StatefulWidget {
   final Function(String) onFavoritePressed;
 
   const PlayerPage({
-    Key? key,
+    super.key,
     required this.songPath,
     required this.songList,
     required this.initialIndex,
     required this.imagePath,
-    required this.onFavoritePressed, required List<String> favorites,
-  }) : super(key: key);
+    required this.onFavoritePressed,
+    required List<String> favorites,
+  });
 
   @override
   _PlayerPageState createState() => _PlayerPageState();

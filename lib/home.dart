@@ -89,9 +89,8 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                       songList: _songs,
                       initialIndex: index,
                       imagePath: image,
-                      favorites: _favorites, onFavoritePressed: (String) {
-                        
-                      },
+                      favorites: _favorites,
+                      onFavoritePressed: (String) {},
                     ),
                   ),
                 );
